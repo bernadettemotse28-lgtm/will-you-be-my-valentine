@@ -5,45 +5,166 @@
   <title>Valentine?</title>
   <style>
     body {
-      background-color: pink;
-      font-family: Arial, sans-serif;
-      text-align: center;
-      padding-top: 100px;
+      margin: 0;
+      height: 100vh;
+      background: linear-gradient(180deg, #ffd6e8, #ffb3c6);
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
     }
+
+    .container {
+      background: white;
+      padding: 30px 40px;
+      border-radius: 25px;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+      z-index: 2;
+      display: none;
+      max-width: 90%;
+    }
+
     h1 {
       color: #d6336c;
+      margin-bottom: 20px;
     }
+
     button {
-      font-size: 20px;
-      padding: 10px 20px;
-      margin: 10px;
-      border-radius: 10px;
+      font-size: 22px;
+      padding: 10px 25px;
+      border-radius: 15px;
       border: none;
       cursor: pointer;
+      margin: 10px;
     }
+
     #yes {
       background-color: #ff4d6d;
       color: white;
     }
+
     #no {
-      background-color: white;
+      background-color: #ffe5ec;
+      position: absolute;
+    }
+
+    /* Countdown */
+    #countdown {
+      font-size: 80px;
+      color: #d6336c;
+      font-weight: bold;
+      z-index: 3;
+    }
+
+    /* Floating hearts */
+    .heart {
+      position: absolute;
+      bottom: -20px;
+      font-size: 20px;
+      animation: float 6s linear infinite;
+      opacity: 0.8;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-110vh) scale(1.5);
+        opacity: 0;
+      }
     }
   </style>
 </head>
 <body>
 
-  <h1>💖 Will you be my Valentine? 💖</h1>
+  <div id="countdown">3</div>
 
-  <button id="yes" onclick="yes()">Yes 💕</button>
-  <button id="no" onclick="no()">No 💔</button>
+  <div class="container" id="main">
+    <h1>💖 Julaica 💖<br>Will you be my Valentine?</h1>
+    <button id="yes" onclick="yes()">Yes 💕</button>
+    <button id="no">No 💔</button>
+  </div>
 
   <script>
+    // Countdown
+    let count = 3;
+    const countdownEl = document.getElementById("countdown");
+    const mainEl = document.getElementById("main");
+
+    const countdownInterval = setInterval(() => {
+      count--;
+      if (count > 0) {
+        countdownEl.textContent = count;
+      } else {
+        clearInterval(countdownInterval);
+        countdownEl.style.display = "none";
+        mainEl.style.display = "block";
+      }
+    }, 1000);
+
+    // Runaway No button
+    const noBtn = document.getElementById("no");
+    noBtn.addEventListener("mouseover", () => {
+      const x = Math.random() * (window.innerWidth - 100);
+      const y = Math.random() * (window.innerHeight - 100);
+      noBtn.style.left = x + "px";
+      noBtn.style.top = y + "px";
+    });
+
+    // Yes button + cheesy love note
     function yes() {
-      document.body.innerHTML = "<h1>🥰 YAY!!! 🥰</h1><p>Happy Valentine’s 💘</p>";
+      document.body.innerHTML = `
+        <div style="
+          background:white;
+          padding:30px;
+          border-radius:25px;
+          text-align:center;
+          max-width:90%;
+          box-shadow:0 10px 30px rgba(0,0,0,0.15);
+        ">
+          <h1 style="color:#ff4d6d;font-size:42px;">🥰 YAY JULAICA!! 🥰</h1>
+
+          <p style="font-size:20px; color:#d6336c;">
+            From the moment you smiled your way into my life,<br>
+            everything started feeling a little warmer ✨
+          </p>
+
+          <p style="font-size:18px;">
+            You make ordinary days feel special,  
+            bad moments feel lighter,  
+            and good moments feel unforgettable 💖
+          </p>
+
+          <p style="font-size:18px;">
+            So this is me, being brave, a little cheesy,  
+            and very honest…  
+            I’d choose you today, tomorrow, and every Valentine after this 💘
+          </p>
+
+          <p style="font-size:22px; color:#ff4d6d;">
+            Happy Valentine’s, beautiful 🌹
+          </p>
+        </div>
+      `;
     }
-    function no() {
-      alert("Wrong answer 😤 Try again");
+
+    // Hearts
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.classList.add("heart");
+      heart.innerHTML = "💖";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.animationDuration = (Math.random() * 3 + 3) + "s";
+      document.body.appendChild(heart);
+
+      setTimeout(() => heart.remove(), 6000);
     }
+
+    setInterval(createHeart, 300);
   </script>
 
 </body>
