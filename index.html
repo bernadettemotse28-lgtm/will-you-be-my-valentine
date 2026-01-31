@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Valentine?</title>
+  <style>
+    body {
+      background-color: pink;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding-top: 100px;
+    }
+    h1 {
+      color: #d6336c;
+    }
+    button {
+      font-size: 20px;
+      padding: 10px 20px;
+      margin: 10px;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+    }
+    #yes {
+      background-color: #ff4d6d;
+      color: white;
+    }
+    #no {
+      background-color: white;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>💖 Will you be my Valentine? 💖</h1>
+
+  <button id="yes" onclick="yes()">Yes 💕</button>
+  <button id="no" onclick="no()">No 💔</button>
+
+  <script>
+    function yes() {
+      document.body.innerHTML = "<h1>🥰 YAY!!! 🥰</h1><p>Happy Valentine’s 💘</p>";
+    }
+    function no() {
+      alert("Wrong answer 😤 Try again");
+    }
+  </script>
+
+</body>
+</html>
